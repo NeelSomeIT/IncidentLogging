@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "IncidentLogging", ".", "{340BD133-C1E5-4251-80EC-F4F2321414F3}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_54115"
+		Debug.AspNetCompiler.PhysicalPath = "..\IncidentLogging\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54115\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_54115"
+		Release.AspNetCompiler.PhysicalPath = "..\IncidentLogging\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54115\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "54115"
+		SlnRelativePath = "..\IncidentLogging\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{340BD133-C1E5-4251-80EC-F4F2321414F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{340BD133-C1E5-4251-80EC-F4F2321414F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FBD7862A-7BA0-431C-ACCD-6C32DC3834FE}
+	EndGlobalSection
+EndGlobal

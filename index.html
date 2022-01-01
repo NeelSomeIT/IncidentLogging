@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Incident Logging</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="Incident Logging powered by Some IT Group" name="description" />
+    <meta content="Shovan B. Swartz" name="author" />
+
+    <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
+
+    <link class="main-stylesheet" href="assets/css/style.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        .form-group-default .input-group-prepend2 .input-group-text {
+            content: "";
+            width: 1px;
+            height: 80%;
+            top: 5px;
+            right: 0px;
+            position: relative;
+            border-right-color: #d5d5d5;
+            border-right-style: solid;
+            border-right-width: 0.1px;
+        }
+
+        .fieldset {
+            position: absolute;
+            left: 50%;
+            bottom: 0px;
+        }
+    </style>
+</head>
+<body class="fixed-header">
+    <!-- END SIDEBAR -->
+    <!-- START PAGE-CONTAINER -->
+    <div class="page-container" style="padding-left: 0px">
+        <div class="page-content-wrapper ">
+            <div class=" container-fluid   container-fixed-lg">
+                <div class="view-port clearfix" id="ezViewPort">
+                    <!-- BEGIN View !-->
+                    <div class="view">
+                        <div id="divHome">
+
+                        </div>
+
+                        <a id="btnHomeToRequests" class="hide" data-navigate="view" data-view-animation="push" data-view-port="#ezViewPort" href="#">Go To Log Request</a>
+                    </div>
+                    <!-- END View !-->
+                    <!-- BEGIN View !-->
+                    <div class="view ">
+                        <!-- BEGIN View Port !-->
+                        <div class="view-port clearfix" id="ezRequestViewPort">
+                            <!-- BEGIN View !-->
+                            <div class="view">
+                                <div id="divRequests">
+
+                                </div>
+
+                                <a id="btnRequestsToHome" class="hide" data-navigate="view" data-view-animation="push" data-view-port="#ezViewPort" href="#">Go Back</a>
+                            </div>
+                            <!-- END View !-->
+                        </div>
+                        <!-- END View Port !-->
+                    </div>
+                    <!-- END View !-->
+                </div>
+                <!-- END View Port !-->
+                <div class="copyright sm-text-center">
+                    <p class="small no-margin pull-left sm-pull-reset">
+                        <span class="hint-text">Copyright © 2021</span>
+                        <span class="hint-text">GrabAGrad</span>.
+                        <span class="hint-text">All rights reserved.</span><br />
+                        <a class="hint-text" href="#" style="color:#585858">Powered by <span style="color:#8fa922">SOME</span> IT</a>.
+                    </p>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="home-template" type="text/x-handlebars-template">
+        <div class="inner">
+            <div align="center" class="m-t-30 m-b-20">
+                <h3>Municipal Incident<br />Tracking</h3>
+            </div>
+        </div>
+        <div class="m-l-15 m-r-15">
+            <div class="card card-default bg-primary text-white" id="btnLogServiceRequest">
+                <div class="card-body">
+                    <div align="center">
+                        <h3>Log Service Request</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="m-t-15 m-l-15 m-r-15">
+            <div class="card card-default bg-success text-white" id="btnViewRequests">
+                <div class="card-body">
+                    <div align="center">
+                        <h3>View Service Requests</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+    <script id="log-request-template" type="text/x-handlebars-template">
+        <div class="bg-white">
+            <!-- START HEADER -->
+            <div class="header ">
+                <div class="">
+                    <a onclick="LogRequest.goBack()"><i class="pg-icon btn-icon-link m-t-10" style="font-size:35px;">chevron_left</i></a>
+                </div>
+                <div class="">
+                    <div class="brand inline">
+                        Log an Incident
+                    </div>
+                </div>
+            </div>
+            <!-- END HEADER -->
+            <div class="card card-default m-t-30">
+                <div class="card-body">
+                    <form id="form-log-request">
+                        <div class="row m-t-20">
+                            <div class="col-md-6 offset-md-3">
+                                <div class="form-group form-group-default form-group-default-select2 required">
+                                    <label class="">Service Group</label>
+                                    <select id="cmbServiceGroup" class="full-width select2-hidden-accessible" data-placeholder="Select a service group" data-init-plugin="select2" tabindex="-1" aria-hidden="true" required>
+                                        <option value="" disabled selected>Please a select a service group</option>
+                                    </select>
+                                </div>
+                                <div class="form-group form-group-default form-group-default-select2 required">
+                                    <label class="">Service</label>
+                                    <select id="cmbService" class="full-width select2-hidden-accessible" data-placeholder="Select a service" data-init-plugin="select2" tabindex="-1" aria-hidden="true" required disabled>
+                                        <option value="" disabled selected>Please a select a service</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group form-group-default input-group required">
+                                    <div class="input-group-prepend2">
+                                        <span class="input-group-text transparent">
+                                            <i class="pg-icon">note</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <label>Fault Description</label>
+                                        <input aria-label="" type="text" name="txtFaultDesc" placeholder="" value="{{description}}" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-default input-group">
+                                    <div class="input-group-prepend2">
+                                        <span class="input-group-text transparent">
+                                            <i class="pg-icon">comment</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <label>Additional Comments</label>
+                                        <input aria-label="" type="text" name="txtComment" placeholder="" value="{{description}}" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <div align="center">
+
+                                    <button aria-label="" class="btn btn-primary btn-icon-left m-b-10" type="button" onclick="LogRequest.getMap()"><i class="pg-icon">location</i><span class="">Get My Location</span></button>
+                                    <div id="map"></div>
+                                </div>
+                                <div class="form-group form-group-default input-group required">
+                                    <div class="input-group-prepend2">
+                                        <span class="input-group-text transparent">
+                                            <i class="pg-icon">map</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <label>Street Address</label>
+                                        <input aria-label="" type="text" name="txtStreetAddress" placeholder="" value="{{description}}" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-default input-group required">
+                                    <div class="input-group-prepend2">
+                                        <span class="input-group-text transparent">
+                                            <i class="pg-icon">map</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <label>Suburb</label>
+                                        <input aria-label="" type="text" name="txtSuburb" placeholder="" value="{{description}}" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-default input-group required">
+                                    <div class="input-group-prepend2">
+                                        <span class="input-group-text transparent">
+                                            <i class="pg-icon">map</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <label>City</label>
+                                        <input aria-label="" type="text" name="txtCity" placeholder="" value="{{description}}" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-default input-group required">
+                                    <div class="input-group-prepend2">
+                                        <span class="input-group-text transparent">
+                                            <i class="pg-icon">map</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-input-group ">
+                                        <label>Postal Code</label>
+                                        <input aria-label="" type="text" name="txtPostalCode" placeholder="" value="{{description}}" class="form-control" required>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3 align-items-center" align="center">
+                                <button aria-label="" class="btn btn-primary btn-icon-left m-b-10" type="button" onclick="LogRequest.clear()"><i class="pg-icon right">cross</i><span class="">Clear</span></button>
+                                <button aria-label="" class="btn btn-success btn-icon-left m-b-10" type="button" onclick="LogRequest.validate()"><i class="pg-icon right">tick</i><span class="">Submit</span></button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="view-requests-template" type="text/x-handlebars-template">
+        <div class="bg-white">
+            <!-- START HEADER -->
+            <div class="header ">
+                <div class="">
+                    <a onclick="ViewRequests.goBack()"><i class="pg-icon btn-icon-link m-t-10" style="font-size:35px;">chevron_left</i></a>
+                </div>
+                <div class="">
+                    <div class="brand inline">
+                        View Requests
+                    </div>
+                </div>
+            </div>
+            <!-- END HEADER -->
+            <div class="card card-default m-t-30">
+                <div class="card-body">
+                    View Requests
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!-- END PAGE CONTAINER -->
+    <!-- BEGIN VENDOR JS -->
+    <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/popper/umd/popper.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery/jquery-easy.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-ios-list/jquery.ioslist.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-actual/jquery.actual.min.js"></script>
+    <script src="assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <!-- END VENDOR JS -->
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <script src="pages/js/pages.min.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS -->
+    <!-- BEGIN PAGE LEVEL JS -->
+    <script src="assets/js/scripts.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL JS -->
+
+    <script type="text/javascript" src="assets/plugins/classie/classie.js"></script>
+    <script src="assets/plugins/select2/js/select2.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol' async defer></script>
+
+    <script src="lib/sweetalert2@11.js"></script>
+    <script src="lib/handlebars.min.js"></script>
+
+    <script src="js/util/webApi.js"></script>
+    <script src="js/util/storage.js"></script>
+    <script src="js/util/util.js"></script>
+    <script src="js/util/init.js"></script>
+
+    <script src="js/app/home.js"></script>
+    <script src="js/app/log-request.js"></script>
+    <script src="js/app/view-requests.js"></script>
+
+
+    <script>
+        var user;
+        $(document).ready(function () {
+            Home.display();
+
+        });
+    </script>
+</body>
+</html>
