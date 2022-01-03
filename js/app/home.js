@@ -14,7 +14,7 @@
             LogRequest.display();
         });
         $("#btnViewRequests").click(function () {
-            ViewRequests.display();
+            ViewRequests.display(true);
         });
     }
 
